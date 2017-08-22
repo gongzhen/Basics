@@ -21,6 +21,9 @@ import {
   TouchableWithoutFeedback,
   Platform
 } from 'react-native';
+import {
+  StackNavigator,
+} from 'react-navigation';
 
 class Greeting extends Component {
   render() {
@@ -52,22 +55,76 @@ class Blink extends Component {
   }
 }
 
+class ScrollViewScreen extends Component {
+  static navigationOptions = {
+    title: "ScrollViewScreen"
+  };
+
+  render() {
+    return (
+      <ScrollView 
+        contentContainerStyle={{flexGrow: 1}}
+      >
+        <Image 
+          style={{ 
+            width: 200, 
+            height: 200           
+          }}
+          source={require('./img/favicon.png')}
+        />
+        <Image 
+          style={{ 
+            width: 200, 
+            height: 200,           
+          }}
+          source={require('./img/favicon.png')} />
+        <Image 
+          style={{ 
+            width: 200, 
+            height: 200,           
+          }}
+          source={require('./img/favicon.png')} />
+        <Image 
+          style={{ 
+            width: 200, 
+            height: 200,           
+          }}
+          source={require('./img/favicon.png')} />
+        <Image 
+          style={{ 
+            width: 200, 
+            height: 200,           
+          }}
+          source={require('./img/favicon.png')} />        
+      </ScrollView>
+    );
+  }
+}
+
 export default class Basics extends Component {
 
   constructor(props) {
     super(props);    
     this.state = {text:''};
+    this._onPressButton = this._onPressButton.bind(this);
   }
 
   _onPressButton() {
-    Alert.alert('You tapped the button!')
+    Alert.alert('You tapped the button!');
+    this.props.navigation.navigate('ScrollViewScreen');
   }  
 
   _onLongPressButton() {
     Alert.alert('You long-pressed the button!')
   }  
 
+  static navigationOptions = {
+    title: 'Welcome Basics',
+  };  
+
   render() {
+    const { navigate } = this.props.navigation;
+
     return (
       <View style={styles.container}>
         <Text style={styles.instructions}>
@@ -105,11 +162,11 @@ export default class Basics extends Component {
           <View style={styles.container}>
             <View style={styles.alternativeLayoutButtonContainer}>
               <Button
-                onPress={this._onPressButton}
+                onPress={this._onPressButton.bind(this)}
                 title="Press Me"
               />          
               <Button
-                onPress={this._onPressButton}
+                onPress={this._onPressButton.bind(this)}
                 title="Press Me"
                 color="#841584"
               />       
@@ -117,31 +174,31 @@ export default class Basics extends Component {
           </View>        
           <View style={styles.highLightContainer}>
             <View style={styles.buttonContainer}>
-              <TouchableHighlight onPress={this._onPressButton} underlayColor="white">
+              <TouchableHighlight onPress={this._onPressButton.bind(this)} underlayColor="white">
                 <View style={styles.button}>
                 <Text style={styles.buttonText}>TouchableHighlight</Text>
               </View>
               </TouchableHighlight>
-              <TouchableOpacity onPress={this._onPressButton}>
+              <TouchableOpacity onPress={this._onPressButton.bind(this)}>
                 <View style={styles.button}>
                   <Text style={styles.buttonText}>TouchableOpacity</Text>
                 </View>
               </TouchableOpacity>
               <TouchableNativeFeedback
-                onPress={this._onPressButton}
+                onPress={this._onPressButton.bind(this)}
                 background={Platform.OS === 'android' ? TouchableNativeFeedback.SelectableBackground() : ''}>
                 <View style={styles.button}>
                   <Text style={styles.buttonText}>TouchableNativeFeedback</Text>
                 </View>
               </TouchableNativeFeedback>
               <TouchableWithoutFeedback
-                onPress={this._onPressButton}
+                onPress={this._onPressButton.bind(this)}
               >
                 <View style={styles.button}>
                   <Text style={styles.buttonText}>TouchableWithoutFeedback</Text>
                 </View>
               </TouchableWithoutFeedback>
-              <TouchableHighlight onPress={this._onPressButton} onLongPress={this._onLongPressButton} underlayColor="white">
+              <TouchableHighlight onPress={this._onPressButton.bind(this)} onLongPress={this._onLongPressButton} underlayColor="white">
                 <View style={styles.button}>
                   <Text style={styles.buttonText}>Touchable with Long Press</Text>
                 </View>
@@ -195,4 +252,9 @@ const styles = StyleSheet.create({
   }  
 });
 
-AppRegistry.registerComponent('Basics', () => Basics);
+const SimpleApp = StackNavigator({
+  Home: { screen: Basics },
+  ScrollViewScreen: { screen: ScrollViewScreen },
+});
+
+AppRegistry.registerComponent('Basics', () => SimpleApp);
