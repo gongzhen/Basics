@@ -10,6 +10,7 @@ import {
   StyleSheet,
   Text,
   View,
+  TextInput,
   Image
 } from 'react-native';
 
@@ -44,6 +45,12 @@ class Blink extends Component {
 }
 
 export default class Basics extends Component {
+
+  constructor(props) {
+    super(props);    
+    this.state = {text:''};
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -59,15 +66,25 @@ export default class Basics extends Component {
           <View style={{width: 50, height: 50, backgroundColor: 'skyblue'}} />
           <View style={{width: 50, height: 50, backgroundColor: 'steelblue'}} />  
         </View>
-      <View style={{ 
-        flex: 0,
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-      }}>
-        <View style={{width: 50, height: 50, backgroundColor: 'powderblue'}} />
-        <View style={{width: 50, height: 50, backgroundColor: 'skyblue'}} />
-        <View style={{width: 50, height: 50, backgroundColor: 'steelblue'}} />
-      </View>        
+        <View style={{ 
+          flex: 0,
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+        }}>
+          <View style={{width: 50, height: 50, backgroundColor: 'powderblue'}} />
+          <View style={{width: 50, height: 50, backgroundColor: 'skyblue'}} />
+          <View style={{width: 50, height: 50, backgroundColor: 'steelblue'}} />
+        </View> 
+        <View style={{padding: 10}}>
+          <TextInput
+            style={{height: 40, width: 200, textAlign:'center'}}
+            placeholder="Type here to translate!"
+            onChangeText={(text) => this.setState({text})}
+          />
+          <Text style={{padding: 10, fontSize: 42, textAlign:'center'}}>
+            {this.state.text.split(' ').map((word) => word && '🍕').join(' ')}
+          </Text>
+        </View>     
       </View>      
     );
   }
