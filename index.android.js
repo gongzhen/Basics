@@ -9,24 +9,50 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
-  View
+  View,
+  Image
 } from 'react-native';
+
+class Greeting extends Component {
+  render() {
+    return (
+        <Text style={styles.instructions}>
+          Hello {this.props.name}
+        </Text>
+      );    
+    }
+}
+
+class Blink extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {showText:true};
+
+    setInterval(() => {
+      this.setState(previouState => {
+        return {showText:!previouState.showText};
+      });
+    }, 1000);    
+  }
+
+  render() {
+    let display = this.state.showText ? this.props.text : ' ';
+    return (
+      <Text>{display}</Text>
+    );
+  }
+}
 
 export default class Basics extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
         <Text style={styles.instructions}>
-          To get started, edit index.android.js
+          <Blink text='Welcome to React Native!' />
         </Text>
-        <Text style={styles.instructions}>
-          Double tap R on your keyboard to reload,{'\n'}
-          Shake or press menu button for dev menu
-        </Text>
-      </View>
+        <Greeting name="gongzhen" />        
+        <Image source={require('./img/image.jpg')} style={{width: 193, height: 110}}/>       
+      </View>      
     );
   }
 }
