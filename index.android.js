@@ -38,7 +38,7 @@ class Blink extends Component {
   render() {
     let display = this.state.showText ? this.props.text : ' ';
     return (
-      <Text>{display}</Text>
+      <Text style={{width:100, height:50, backgroundColor:'#F5FCFF'}}>{display}</Text>
     );
   }
 }
@@ -51,7 +51,23 @@ export default class Basics extends Component {
           <Blink text='Welcome to React Native!' />
         </Text>
         <Greeting name="gongzhen" />        
-        <Image source={require('./img/image.jpg')} style={{width: 193, height: 110}}/>       
+        <Image source={require('./img/image.jpg')} style={{width: 193, height: 110}}/>  
+        <View style={{
+          flex:0, flexDirection:'row'
+        }} >
+          <View style={{width: 50, height: 50, backgroundColor: 'powderblue'}} />
+          <View style={{width: 50, height: 50, backgroundColor: 'skyblue'}} />
+          <View style={{width: 50, height: 50, backgroundColor: 'steelblue'}} />  
+        </View>
+      <View style={{ 
+        flex: 0,
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+      }}>
+        <View style={{width: 50, height: 50, backgroundColor: 'powderblue'}} />
+        <View style={{width: 50, height: 50, backgroundColor: 'skyblue'}} />
+        <View style={{width: 50, height: 50, backgroundColor: 'steelblue'}} />
+      </View>        
       </View>      
     );
   }
